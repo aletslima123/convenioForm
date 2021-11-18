@@ -1,4 +1,47 @@
 /* You can add global styles to this file, and also import other style files */
+@import "./styles/variables";
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  font-size: $font-size-base;
+  font-family: $font-family-base;
+  color: $body-color;
+  background-color: $body-bg;
+}
+
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+strong {
+  font-weight: $font-weight-bold;
+}
+
+app-root {
+  flex: 1;
+  min-height: 100vh;
+  flex-direction: column;
+  display: flex;
+}
+
+input[type="number"] {
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+.mat-tooltip {
+  font-size: $font-size-xs;
+}
