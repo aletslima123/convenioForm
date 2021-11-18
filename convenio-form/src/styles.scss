@@ -45,3 +45,50 @@ input[type="number"]::-webkit-inner-spin-button {
 .mat-tooltip {
   font-size: $font-size-xs;
 }
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  color: $pink;
+  font-family: $font-family-title;
+  font-weight: $font-weight-bold;
+  margin: 0;
+}
+
+h1 {
+  font-size: $main-title-size;
+  margin: 0 0 1.875rem 0;
+}
+
+ul {
+  margin: 0;
+  padding-left: 30px;
+  list-style: none;
+}
+
+ul > li {
+  margin-bottom: $gap-xs;
+}
+
+.mat-raised-button,
+.mat-raised-button[color="primary"] .mat-raised-button[color="pink"] {
+  border: 2px solid $black !important;
+  border-radius: $gap-xs !important;
+  background-color: $white;
+}
+
+.mat-raised-button {
+  color: $black;
+}
+
+.mat-raised-button[color="pink"] {
+  color: $pink;
+}
+
+.mat-raised-button[color="primary"] {
+  border: none !important;
+  background-color: $pink;
+  color: $white;
+}
