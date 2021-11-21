@@ -22,10 +22,21 @@ $h1-font-size: $font-size-lg;
 
 $pink: #ff004d;
 $grey: #878787;
+$dark-grey: #808080;
 $black: #000000;
 $white: #ffffff;
 
 $body-color: $grey;
-$body-bg: $white;
+$body-bg: $dark-grey;
 
 $gap-xs: 20px;
+$gap-sm: 30px;
+$gap-md: 40px;
+$gap-lg: 60px;
+
+$mobile-breakpoint-base: 320px;
+$mobile-breakpoint-xxs: 375px;
+$mobile-breakpoint-sm: 568px;
+$mobile-breakpoint-xs: 414px;
+$tablet-breakpoint-sm: 768px;
+$tablet-breakpoint-md: 1024px;

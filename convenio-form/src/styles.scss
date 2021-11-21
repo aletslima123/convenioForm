@@ -1,5 +1,5 @@
-/* You can add global styles to this file, and also import other style files */
 @import "./styles/variables";
+@import "./styles/mixins";
 
 * {
   box-sizing: border-box;
@@ -17,7 +17,6 @@ body {
 
 body {
   display: flex;
-  min-height: 100vh;
   flex-direction: column;
 }
 
@@ -27,7 +26,6 @@ strong {
 
 app-root {
   flex: 1;
-  min-height: 100vh;
   flex-direction: column;
   display: flex;
 }
@@ -59,24 +57,56 @@ h5 {
 
 h1 {
   font-size: $main-title-size;
-  margin: 0 0 1.875rem 0;
+  margin: 0 0 $gap-sm 0;
+
+  @media (min-width: $tablet-breakpoint-sm) {
+    margin-bottom: $gap-md;
+  }
 }
 
 ul {
+  padding: 0;
   margin: 0;
-  padding-left: 30px;
   list-style: none;
-}
 
-ul > li {
-  margin-bottom: $gap-xs;
+  li {
+    margin-bottom: $gap-xs;
+
+    &:last-child {
+      margin: 0;
+    }
+
+    @media (min-width: $tablet-breakpoint-sm) {
+      margin-bottom: $gap-md;
+    }
+
+    @media (min-width: $tablet-breakpoint-md) {
+      margin-bottom: $gap-sm;
+    }
+  }
 }
 
 .mat-raised-button,
 .mat-raised-button[color="primary"] .mat-raised-button[color="pink"] {
+  @include fluid-text(
+    $mobile-breakpoint-base,
+    $tablet-breakpoint-sm,
+    $font-size-sm,
+    $font-size-lg
+  );
   border: 2px solid $black !important;
-  border-radius: $gap-xs !important;
+  border-radius: 30px !important;
+  line-height: normal !important;
+  height: auto !important;
+  padding: 8px 16px !important;
   background-color: $white;
+
+  @media (min-width: $tablet-breakpoint-sm) {
+    padding: 10px 18px !important;
+  }
+  @media (min-width: $tablet-breakpoint-md) {
+    font-size: 18px;
+  }
 }
 
 .mat-raised-button {
