@@ -18,6 +18,11 @@ body {
 body {
   display: flex;
   flex-direction: column;
+  transition: padding ease-in-out 0.3s;
+
+  @media (min-width: 1280px) {
+    padding: 2rem;
+  }
 }
 
 strong {
@@ -28,6 +33,7 @@ app-root {
   flex: 1;
   flex-direction: column;
   display: flex;
+  box-shadow: 6px 4px 10px 1px rgba(51, 51, 51, 0.46);
 }
 
 input[type="number"] {

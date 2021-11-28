@@ -10,6 +10,7 @@
 
   @if $u1 == $u2 and $u1 == $u3 and $u1 == $u4 {
     & {
+      transition: width ease-in-out 0.3s, height ease-in-out 0.3s;
       width: $min-size;
       height: $min-size;
       @media screen and (min-width: $min-vw) {

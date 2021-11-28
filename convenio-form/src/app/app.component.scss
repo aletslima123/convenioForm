@@ -2,11 +2,16 @@
 
 :host {
   padding: $gap-xs;
-  max-width: 1084px;
-  max-height: 1084px;
+  max-width: 1024px;
+  max-height: 1366px;
   background-color: #fff;
+  transition: padding ease-in-out 0.3s, border-radius ease-in-out 0.3s;
 
   @media (min-width: $mobile-breakpoint-sm) {
     padding: $gap-sm;
+  }
+
+  @media (min-width: 1280px) {
+    border-radius: 1rem;
   }
 }
