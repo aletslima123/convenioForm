@@ -1,0 +1,22 @@
+@import "mixins";
+@import "variables";
+
+:host {
+  h1 {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 1.25rem;
+    @include fluid-text(320px, 768px, $main-title-size, 40px);
+  }
+
+  span {
+    display: block;
+    width: 100%;
+    text-align: right;
+    @include fluid-text(320px, 768px, $font-size-xs, 18px);
+  }
+
+  @media (min-width: $tablet-breakpoint-md) {
+    padding: $gap-xs;
+  }
+}

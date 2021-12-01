@@ -92,14 +92,25 @@ ul {
   }
 }
 
+span {
+  font-size: $font-size-xs;
+}
+
 .mat-raised-button,
 .mat-raised-button[color="primary"] .mat-raised-button[color="pink"] {
-  @include fluid-text(
-    $mobile-breakpoint-base,
-    $tablet-breakpoint-sm,
-    $font-size-sm,
-    $font-size-lg
-  );
+  span {
+    @include fluid-text(
+      $mobile-breakpoint-base,
+      $tablet-breakpoint-sm,
+      $font-size-sm,
+      $font-size-lg
+    );
+
+    @media (min-width: $tablet-breakpoint-md) {
+      font-size: 18px;
+    }
+  }
+
   border: 2px solid $black !important;
   border-radius: 30px !important;
   line-height: normal !important;
@@ -109,9 +120,6 @@ ul {
 
   @media (min-width: $tablet-breakpoint-sm) {
     padding: 10px 18px !important;
-  }
-  @media (min-width: $tablet-breakpoint-md) {
-    font-size: 18px;
   }
 }
 
