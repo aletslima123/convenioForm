@@ -1,0 +1,26 @@
+:host {
+  strong {
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  mat-radio-group {
+    display: block;
+    margin-bottom: 1rem;
+
+    mat-radio-button {
+      display: block;
+      margin-bottom: 1rem;
+    }
+  }
+
+  mat-checkbox {
+    display: block;
+    margin-bottom: 1rem;
+  }
+}
