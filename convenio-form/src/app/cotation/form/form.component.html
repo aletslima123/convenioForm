@@ -14,134 +14,155 @@
     </mat-radio-button>
   </mat-radio-group>
 
-  <label>{{ you }} já possuí plano de saúde?</label>
-  <mat-radio-group formControlName="hasHealthInsurance">
-    <mat-radio-button value="0" color="primary"> Sim </mat-radio-button>
-    <mat-radio-button value="1" color="primary"> Não </mat-radio-button>
-  </mat-radio-group>
+  <ng-container *ngIf="forWho">
+    <label>{{ you }} já possuí plano de saúde?</label>
+    <mat-radio-group formControlName="hasHealthInsurance">
+      <mat-radio-button value="true" color="primary"> Sim </mat-radio-button>
+      <mat-radio-button value="false" color="primary"> Não </mat-radio-button>
+    </mat-radio-group>
+  </ng-container>
 
-  <ng-container *ngIf="forWho === 'OnePerson'">
+  <ng-container *ngIf="hasHealthInsurance">
+    <p>
+      Qual plano de saúde <span>{{ you }}</span> tem? e o que exatamente não te
+      agrada nele, sinta-se vontade para nos dizer também o que você busca em um
+      plano de saúde, para que possamos te ajudar a encontrar o plano de saúde
+      perfeito pra você:
+    </p>
+    <mat-form-field>
+      <mat-label>Resposta opcional</mat-label>
+      <textarea
+        formControlName="currentHealthInsuranceData"
+        matInput
+        placeholder="Exemplo: Tenho o plano x, quero trocar pois esta muito caro."
+      ></textarea>
+    </mat-form-field>
+  </ng-container>
+
+  <ng-container *ngIf="hasHealthInsurance !== null">
+    <mat-form-field>
+      <input
+        matInput
+        type="text"
+        formControlName="name"
+        autocomplete="on"
+        [placeholder]="nameOption"
+        name="name"
+      />
+      <mat-error *ngIf="cotationForm.get('name').errors">
+        <span>Erro</span>
+      </mat-error>
+    </mat-form-field>
+  </ng-container>
+
+  <ng-container *ngIf="cotationForm.get('name').value">
+    <mat-form-field>
+      <mat-label>{{ idOption }}</mat-label>
+      <input
+        matInput
+        type="number"
+        inputmode="numeric"
+        formControlName="id"
+        autocomplete="on"
+        [placeholder]="idOption"
+        [name]="idOption"
+      />
+      <mat-error *ngIf="cotationForm.get('id').errors">
+        <span>Erro</span>
+      </mat-error>
+    </mat-form-field>
+  </ng-container>
+
+  <ng-container *ngIf="false">
     <mat-form-field>
       <mat-label>Data de nascimento</mat-label>
       <input matInput [matDatepicker]="picker" name="data nascimento" />
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
-  </ng-container>
 
-  <mat-form-field>
-    <input
-      matInput
-      type="text"
-      formControlName="name"
-      autocomplete="on"
-      placeholder="Nome Completo"
-      name="name"
-    />
-    <mat-error *ngIf="cotationForm.get('name').errors">
-      <span>Erro</span>
-    </mat-error>
-  </mat-form-field>
+    <strong>Contato</strong>
 
-  <strong>Contato</strong>
-
-  <mat-form-field>
-    <input
-      matInput
-      type="number"
-      inputmode="numeric"
-      formControlName="ddd"
-      autocomplete="on"
-      placeholder="(DDD)"
-      name="ddd"
-    />
-    <mat-error *ngIf="cotationForm.get('ddd').errors">
-      <span>Erro</span>
-    </mat-error>
-  </mat-form-field>
-
-  <mat-form-field>
-    <input
-      matInput
-      type="number"
-      inputmode="numeric"
-      formControlName="phone"
-      autocomplete="on"
-      placeholder="Celular"
-      name="phone"
-    />
-    <mat-error *ngIf="cotationForm.get('phone').errors">
-      <span>Erro</span>
-    </mat-error>
-  </mat-form-field>
-
-  <mat-form-field>
-    <input
-      matInput
-      type="email"
-      formControlName="email"
-      autocomplete="on"
-      placeholder="E-mail"
-      name="email"
-    />
-    <mat-error *ngIf="cotationForm.get('email').errors">
-      <span>Erro</span>
-    </mat-error>
-  </mat-form-field>
-
-  <label>Caso necessário prefiro ser contactado por:</label>
-  <mat-checkbox formControlName="canIcallYou">Ligações</mat-checkbox>
-  <mat-checkbox formControlName="canIemailYou">E-mail</mat-checkbox>
-  <mat-checkbox formControlName="canITextYou">Whatsapp</mat-checkbox>
-
-  <ng-container *ngIf="forWho === 'Family'">
-    <mat-form-field>
-      <mat-label>Número de familiares</mat-label>
-      <mat-select formControlName="familyMembers">
-        <mat-option value="2"> 2 </mat-option>
-        <mat-option value="3"> 3 </mat-option>
-        <mat-option value="+3"> mais de 3 </mat-option>
-      </mat-select>
-    </mat-form-field>
-  </ng-container>
-
-  <ng-container *ngIf="forWho === 'Business'">
-    <p>quantidade de funcionários</p>
     <mat-form-field>
       <input
         matInput
         type="number"
         inputmode="numeric"
-        formControlName="cnpj"
+        formControlName="ddd"
         autocomplete="on"
-        placeholder="CNPJ"
-        name="cnpj"
+        placeholder="(DDD)"
+        name="ddd"
       />
       <mat-error *ngIf="cotationForm.get('ddd').errors">
         <span>Erro</span>
       </mat-error>
     </mat-form-field>
+
+    <mat-form-field>
+      <input
+        matInput
+        type="number"
+        inputmode="numeric"
+        formControlName="phone"
+        autocomplete="on"
+        placeholder="Celular"
+        name="phone"
+      />
+      <mat-error *ngIf="cotationForm.get('phone').errors">
+        <span>Erro</span>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input
+        matInput
+        type="email"
+        formControlName="email"
+        autocomplete="on"
+        placeholder="E-mail"
+        name="email"
+      />
+      <mat-error *ngIf="cotationForm.get('email').errors">
+        <span>Erro</span>
+      </mat-error>
+    </mat-form-field>
+
+    <label>Caso necessário prefiro ser contactado por:</label>
+    <mat-checkbox formControlName="onlyEmail">Apenasa e-mail</mat-checkbox>
+    <mat-checkbox formControlName="canIcallYou">Ligações</mat-checkbox>
+    <mat-checkbox formControlName="canITextYou">Whatsapp</mat-checkbox>
+
+    <mat-form-field>
+      <mat-label>Número de familiares</mat-label>
+      <mat-select>
+        <mat-option value="2"> 2 </mat-option>
+        <mat-option value="3"> 3 </mat-option>
+        <mat-option value="+3"> mais de 3 </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <p>quantidade de funcionários</p>
+
+    <strong>Localização</strong>
+
+    <mat-form-field>
+      <input
+        matInput
+        type="number"
+        inputmode="numeric"
+        formControlName="cep"
+        autocomplete="on"
+        placeholder="CEP"
+        name="cep"
+      />
+      <mat-error *ngIf="cotationForm.get('phone').errors">
+        <span>Erro</span>
+      </mat-error>
+    </mat-form-field>
+
+    <strong>Plano</strong>
+    <label>Qual tipo de plano prefere cotar?</label>
+    <mat-checkbox formControlName="nursery">Enfermaria</mat-checkbox>
+    <mat-checkbox formControlName="room">Apartamento</mat-checkbox>
   </ng-container>
-
-  <strong>Localização</strong>
-
-  <mat-form-field>
-    <input
-      matInput
-      type="number"
-      inputmode="numeric"
-      formControlName="cep"
-      autocomplete="on"
-      placeholder="CEP"
-      name="cep"
-    />
-    <mat-error *ngIf="cotationForm.get('phone').errors">
-      <span>Erro</span>
-    </mat-error>
-  </mat-form-field>
-
-  <strong>Plano</strong>
-  <label>Qual tipo de plano prefere cotar?</label>
-  <mat-checkbox formControlName="nursery">Enfermaria</mat-checkbox>
-  <mat-checkbox formControlName="room">Apartamento</mat-checkbox>
 </form>
