@@ -73,14 +73,65 @@
     </mat-form-field>
   </ng-container>
 
-  <ng-container *ngIf="false">
+  <ng-container *ngIf="cotationForm.get('id').value">
     <mat-form-field>
       <mat-label>Data de nascimento</mat-label>
-      <input matInput [matDatepicker]="picker" name="data nascimento" />
+      <input
+        matInput
+        formControlName="birthDay"
+        [matDatepicker]="picker"
+        name="data de nascimento"
+      />
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
+  </ng-container>
 
+  <ng-container
+    *ngIf="forWho !== 'OnePerson' && cotationForm.get('birthDay').value"
+  >
+    <div
+      formArrayName="dependents"
+      *ngFor="let dependent of dependentGroup.controls; let i = index"
+    >
+      <ng-container [formGroupName]="i">
+        <mat-form-field>
+          <input
+            matInput
+            type="text"
+            formControlName="dependentName"
+            autocomplete="on"
+            placeholder="Nome do {{ dependentNameOption }}"
+            name="name"
+          />
+          <mat-error
+            *ngIf="dependentGroup.controls[i].get('dependentName').errors"
+          >
+            <span>Erro</span>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Data de nascimento</mat-label>
+          <input
+            matInput
+            formControlName="dependentBirthDay"
+            [matDatepicker]="picker"
+            name="data de nascimento"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </ng-container>
+    </div>
+
+    <button>Adicionar {{ dependentNameOption }}</button>
+  </ng-container>
+
+  <ng-container *ngIf="false">
     <strong>Contato</strong>
 
     <mat-form-field>

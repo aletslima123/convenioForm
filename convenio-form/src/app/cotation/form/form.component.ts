@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import {
   Dependent,
+  dependentsNameOptions,
   ForWho,
   IdOptions,
   NameOptions,
@@ -21,6 +22,7 @@ export class FormComponent implements OnInit, OnDestroy {
   you: You;
   nameOption: NameOptions;
   idOption: IdOptions;
+  dependentNameOption: dependentsNameOptions;
   destroy$: Subject<boolean> = new Subject<boolean>();
   hasHealthInsurance: boolean = null;
 
@@ -63,6 +65,10 @@ export class FormComponent implements OnInit, OnDestroy {
         this.you = You[fieldValue];
         this.nameOption = NameOptions[fieldValue];
         this.idOption = IdOptions[fieldValue];
+
+        if (this.forWho !== ForWho.OnePerson) {
+          this.dependentNameOption = dependentsNameOptions[fieldValue];
+        }
       });
 
     hasHealthInsurance.valueChanges
@@ -83,9 +89,9 @@ export class FormComponent implements OnInit, OnDestroy {
 
   public creadeDepend(dependent: Dependent): FormGroup {
     return this.fb.group({
-      name: [dependent.name],
-      birthDay: [dependent.birthDay, Validators.required],
-      sex: ['', Validators.required],
+      dependentName: [dependent.dependentName],
+      dependentBirthDay: [dependent.dependentBirthDay, Validators.required],
+      depedentSex: ['', Validators.required],
     });
   }
 

@@ -22,13 +22,18 @@ export enum IdOptions {
   Business = 'CNPJ',
 }
 
+export enum dependentsNameOptions {
+  Family = 'familiar',
+  Business = 'funcionário',
+}
+
 export enum Sex {
   M = 'M',
   F = 'F',
 }
 
 export class Dependent {
-  name?: string;
-  birthDay: any; // moment
-  sex: Sex;
+  dependentName?: string;
+  dependentBirthDay: any; // moment
+  depedentSex: Sex;
 }
