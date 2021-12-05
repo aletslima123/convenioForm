@@ -1,5 +1,5 @@
 <form [formGroup]="cotationForm" (ngSubmit)="onSubmit()">
-  <strong>Dados pessoais</strong>
+  <strong>Dados iniciais</strong>
 
   <label>Você quer cotar um plano de saúde para: </label>
   <mat-radio-group formControlName="forWho">
@@ -40,6 +40,7 @@
   </ng-container>
 
   <ng-container *ngIf="hasHealthInsurance !== null">
+    <strong>Dados pessoais</strong>
     <mat-form-field>
       <input
         matInput
@@ -56,6 +57,14 @@
   </ng-container>
 
   <ng-container *ngIf="cotationForm.get('name').value">
+    <label>Sexo</label>
+    <mat-radio-group formControlName="sex">
+      <mat-radio-button value="F" color="primary"> Feminino </mat-radio-button>
+      <mat-radio-button value="M" color="primary"> Masculino </mat-radio-button>
+    </mat-radio-group>
+  </ng-container>
+
+  <ng-container *ngIf="cotationForm.get('sex').value">
     <mat-form-field>
       <mat-label>{{ idOption }}</mat-label>
       <input
@@ -90,6 +99,12 @@
   <ng-container
     *ngIf="forWho !== 'OnePerson' && cotationForm.get('birthDay').value"
   >
+    <strong>Dados dos {{ dependentsNameOptionsPlural }}</strong>
+    <p>
+      Precisaremos apenas no primeiro nome e data de nascimento de cada membro
+      da família
+    </p>
+    <pre>{{ cotationForm.get("dependents").value | json }}</pre>
     <div
       formArrayName="dependents"
       *ngFor="let dependent of dependentGroup.controls; let i = index"
@@ -111,6 +126,16 @@
           </mat-error>
         </mat-form-field>
 
+        <label>Sexo</label>
+        <mat-radio-group formControlName="depedentSex">
+          <mat-radio-button value="F" color="primary">
+            Feminino
+          </mat-radio-button>
+          <mat-radio-button value="M" color="primary">
+            Masculino
+          </mat-radio-button>
+        </mat-radio-group>
+
         <mat-form-field>
           <mat-label>Data de nascimento</mat-label>
           <input
@@ -128,7 +153,9 @@
       </ng-container>
     </div>
 
-    <button>Adicionar {{ dependentNameOption }}</button>
+    <button mat-raised-button color="primary">
+      Adicionar {{ dependentNameOption }}
+    </button>
   </ng-container>
 
   <ng-container *ngIf="false">

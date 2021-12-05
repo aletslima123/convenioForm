@@ -1,10 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { debounceTime, takeUntil } from 'rxjs/operators';
 import {
   Dependent,
-  dependentsNameOptions,
+  DependentsNameOptions,
+  DependentsNameOptionsPlural,
   ForWho,
   IdOptions,
   NameOptions,
@@ -22,7 +23,8 @@ export class FormComponent implements OnInit, OnDestroy {
   you: You;
   nameOption: NameOptions;
   idOption: IdOptions;
-  dependentNameOption: dependentsNameOptions;
+  dependentNameOption: DependentsNameOptions;
+  dependentsNameOptionsPlural: DependentsNameOptionsPlural;
   destroy$: Subject<boolean> = new Subject<boolean>();
   hasHealthInsurance: boolean = null;
 
@@ -37,8 +39,9 @@ export class FormComponent implements OnInit, OnDestroy {
       forWho: ['', Validators.required],
       hasHealthInsurance: [''],
       currentHealthInsuranceData: [],
-      id: [], // CPF ou CNPJ validation
       name: ['', Validators.required], // or companyName
+      sex: [''],
+      id: [], // CPF ou CNPJ validation
       birthDay: ['', Validators.required], // only if for onePerson or Family
       onlyEmail: [false],
       canIcallYou: [false],
@@ -57,17 +60,21 @@ export class FormComponent implements OnInit, OnDestroy {
   public registerFieldsSubscriptions(): void {
     const forWho = this.cotationForm.get('forWho');
     const hasHealthInsurance = this.cotationForm.get('hasHealthInsurance');
+    const birthDay = this.cotationForm.get('birthDay');
 
     forWho.valueChanges
       .pipe(takeUntil(this.destroy$))
       .subscribe((fieldValue: ForWho) => {
         this.forWho = fieldValue;
+
         this.you = You[fieldValue];
         this.nameOption = NameOptions[fieldValue];
         this.idOption = IdOptions[fieldValue];
 
         if (this.forWho !== ForWho.OnePerson) {
-          this.dependentNameOption = dependentsNameOptions[fieldValue];
+          this.dependentNameOption = DependentsNameOptions[fieldValue];
+          this.dependentsNameOptionsPlural =
+            DependentsNameOptionsPlural[fieldValue];
         }
       });
 
@@ -76,6 +83,19 @@ export class FormComponent implements OnInit, OnDestroy {
       .subscribe((fieldValue: string) => {
         const boolValue = fieldValue === 'true';
         this.hasHealthInsurance = boolValue;
+      });
+
+    birthDay.valueChanges
+      .pipe(takeUntil(this.destroy$), debounceTime(500))
+      .subscribe(() => {
+        if (this.forWho === ForWho.Family) {
+          // Adicionar o dependente apenas uma vez
+          this.addDependent({
+            dependentName: this.cotationForm.get('name').value,
+            dependentBirthDay: this.cotationForm.get('birthDay').value,
+            depedentSex: this.cotationForm.get('sex').value, // não está sendo alterado o valor
+          } as Dependent);
+        }
       });
   }
 

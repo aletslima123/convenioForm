@@ -22,9 +22,14 @@ export enum IdOptions {
   Business = 'CNPJ',
 }
 
-export enum dependentsNameOptions {
+export enum DependentsNameOptions {
   Family = 'familiar',
   Business = 'funcionário',
+}
+
+export enum DependentsNameOptionsPlural {
+  Family = 'familiares',
+  Business = 'funcionários',
 }
 
 export enum Sex {
